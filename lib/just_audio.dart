@@ -44,6 +44,7 @@ import 'package:rxdart/rxdart.dart';
 /// whatever state the player was in prior to the seek request.
 class AudioPlayer {
   static final _mainChannel = MethodChannel('com.ryanheise.just_audio.methods');
+  String audioId = '';
 
   static Future<MethodChannel> _init(int id) async {
     await _mainChannel.invokeMethod('init', ['$id']);
@@ -159,7 +160,8 @@ class AudioPlayer {
   /// Loads audio media from a URL and completes with the duration of that
   /// audio, or null if this call was interrupted by another call so [setUrl],
   /// [setFilePath] or [setAsset].
-  Future<Duration> setUrl(final String url, {String img, String name}) async {
+  Future<Duration> setUrl(final String url, {String img, String name, String audioId}) async {
+    this.audioId = audioId;
     _durationFuture = _invokeMethod('setUrl', [
         url,
         name,
