@@ -18,6 +18,7 @@ import com.ryanheise.just_audio.trans.GlideCircleWithBorder;
 public class LockActivity extends Activity {
     String name;
     String img;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +43,11 @@ public class LockActivity extends Activity {
         ImageView iv_img = (ImageView) findViewById(R.id.iv_img);
         final ImageView iv_play = (ImageView) findViewById(R.id.iv_play);
 
-        if (name!=null && name.length()>0){
+        if (name != null && name.length() > 0) {
             tv_name.setText(name);
         }
 
-        if (img!=null && img.length()>0){
+        if (img != null && img.length() > 0) {
             Glide.with(this)
                     .load(img)
                     .apply(RequestOptions.bitmapTransform(new GlideCircleWithBorder(6, Color.parseColor("#66000000"))))
@@ -58,17 +59,17 @@ public class LockActivity extends Activity {
         iv_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(AudioPlayer.player!=null){
+                if (AudioPlayer._myBinder != null) {
 
-                    if (AudioPlayer.player.isPlaying()){
+                    if (AudioPlayer._myBinder.isPlaying()) {
                         AudioPlayer.pause();
-                        iv_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_btn_play) );
+                        iv_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_btn_play));
                     } else {
 
 //                        AudioplayerPlugin.mediaPlayer.start();
 //                        AudioplayerPlugin.play(url);
                         AudioPlayer.play();
-                        iv_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_btn_pause) );
+                        iv_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_btn_pause));
                     }
 
                 }
@@ -78,7 +79,8 @@ public class LockActivity extends Activity {
         registLisener(this);
     }
 
-    ScreenListener l ;
+    ScreenListener l;
+
     private void registLisener(final Context context) {
         l = new ScreenListener(context);
         l.begin(new ScreenListener.ScreenStateListener() {
